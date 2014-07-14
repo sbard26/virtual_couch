@@ -1,5 +1,23 @@
-FILE DELETED
+var express = require('express');
+var app = express();
+var port = process.env.PORT || 8080;
+var io = require('socket.io').listen(app.listen(port));
+var http = require('http');
+var request = ('request');
 
-Microsoft Forefront Protection for Exchange Server removed a file since it was found to match a filter.
-File name: "winmail.dat->server.js"
-Filter name: "FILE FILTER= Blocked File Types: *.js"
+var pub = __dirname + '/public';
+var view = __dirname + '/views';
+
+app.use(express.static(pub));
+app.use(express.static(view));
+
+io.on('connection', function(socket){
+	console.log('connected');
+	socket.on('disconnect', function() {
+		console.log('disconnect');
+	});
+
+	socket.on('chat', function(msg){
+		console.log(msg);
+	});
+});

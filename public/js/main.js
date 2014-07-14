@@ -1,5 +1,15 @@
-FILE DELETED
+(function(){
+	var socket = io();
 
-Microsoft Forefront Protection for Exchange Server removed a file since it was found to match a filter.
-File name: "winmail.dat->main.js"
-Filter name: "FILE FILTER= Blocked File Types: *.js"
+	socket.on('firstShow', function(data) {
+		$('body').append(data.data);
+	});
+
+	$('#emitButton').click(function() {
+		var input = $('#message').val();
+		console.log(input);
+		socket.emit('chat', input);
+		$('#message').val('');
+		return false;
+	});
+})(this);

@@ -1,14 +1,33 @@
 {
-	"name": "virtual_couch",
-	"version": "0.0.1",
-	"description": "Virtual Couch",
-	"dependencies": {
-		"socket.io": "1.0.6",
-		"request": "2.37.0",
-		"express": "4.6.1"
-	},
-	"engines": {
-		"node": "0.10.24",
-		"npm": "1.2.30"
-	}
+  "name": "virtual_couch",
+  "version": "0.0.1",
+  "description": "Virtual Couch",
+  "dependencies": {
+    "express": "4.6.1",
+    "package.json": "0.0.0",
+    "request": "2.37.0",
+    "socket.io": "1.0.6"
+  },
+  "engines": {
+    "node": "0.10.24",
+    "npm": "1.2.30"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sbard26/virtual_couch.git"
+  },
+  "keywords": [
+    "virtual",
+    "couch"
+  ],
+  "author": "Spencer Bard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sbard26/virtual_couch/issues"
+  },
+  "homepage": "https://github.com/sbard26/virtual_couch"
 }
