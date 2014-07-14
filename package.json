@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Virtual Couch",
   "dependencies": {
-    "express": "4.6.1",
+    "express": "^4.6.1",
+    "logfmt": "^1.1.2",
     "package.json": "0.0.0",
     "request": "2.37.0",
     "socket.io": "1.0.6"
