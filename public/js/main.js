@@ -14,7 +14,6 @@
 
 	socket.on('seek', function(data){
 		jwplayer('playerA').seek(data.offset);
-		jwplayer('playerA').pause(true);
 		console.log('seekFromServer');
 	});
 
@@ -29,6 +28,7 @@
 
 	jwplayer('playerA').onSeek(function(offset){
 		socket.emit('seek', offset);
+		jwplayer('playerA').pause(true);
 		console.log('seek');
 	});
 
