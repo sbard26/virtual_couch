@@ -29,7 +29,7 @@ io.on('connection', function(socket){
 		io.emit('pause');
 	});
 
-	socket.on('seek', function(data){
-		io.emit('seek', data.offset);
+	socket.on('seek', function(offset){
+		io.emit('seek', offset);
 	});
 });
