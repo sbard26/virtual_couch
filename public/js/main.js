@@ -4,39 +4,42 @@
 
 	//events from server
 	socket.on('play', function(){
-		if (playerA.getState() != "PLAYING") {
-			playerA.play(true);		
-			console.log('playFromServer');
-		}
+		playerA.play(true);
 	});
 
 	socket.on('pause', function(){
-		if (playerA.getState() != "PAUSED") {
-			playerA.pause(true);
-			console.log('pauseFromServer');
-		}
+		playerA.pause(true);
 	});
 
-	socket.on('seek', function(data){
-		playerA.seek(data.offset);
-		console.log('seekFromServer');
+	socket.on('skip', function(){
+		var position = playerA.getPosition(playerA);
+		position += 5;
+		playerA.seek(position);
 	});
+
+	socket.on('rewind', function(){
+		var position = playerA.getPosition(playerA);
+		position -= 5;
+		playerA.seek(position);
+	});
+
 
 	//events from player sent to server
-	playerA.onPlay(function(oldState){
+
+	$('#play').click(function() {
 		socket.emit('play');
-		console.log("onPlay");
 	});
 
-	playerA.onPause(function(oldState){
+	$('#pause').click(function() {
 		socket.emit('pause');
-		console.log("onPause");
 	});
 
-	playerA.onSeek(function(offset){
-		playerA.pause(true);
-		socket.emit('seek', offset);
-		console.log('onSeek');
+	$('#skip').click(function() {
+		socket.emit('skip');
+	});
+
+	$('#rewind').click(function() {
+		socket.emit('rewind');
 	});
 	
 	$('#emitButton').click(function() {

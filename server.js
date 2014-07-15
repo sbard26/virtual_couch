@@ -27,14 +27,19 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(){
-		socket.broadcast.to(socket.room).emit('play');
+		io.emit('play');
 	});
 
 	socket.on('pause', function(){
-		socket.broadcast.to(socket.room).emit('pause');
+		io.emit('pause');
 	});
 
-	socket.on('seek', function(position, offset){
-		socket.broadcast.to(socket.room).emit('seek', position, offset);
+	socket.on('skip', function(){
+		io.emit('skip');
+	});
+
+	socket.on('rewind', function(){
+		io.emit('rewind');
 	});
 });
+
