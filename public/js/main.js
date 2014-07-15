@@ -37,9 +37,7 @@
 		socket.emit('seek', offset);
 		console.log('onSeek');
 	});
-
 	
-
 	$('#emitButton').click(function() {
 		var input = $('#message').val();
 		console.log(input);
