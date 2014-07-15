@@ -5,16 +5,16 @@
 	//events from server
 	socket.on('play', function(){
 		if (playerA.getState() != "PLAYING") {
-			playerA.play(true);
+			playerA.play(true);		
+			console.log('playFromServer');
 		}
-		console.log('playFromServer');
 	});
 
 	socket.on('pause', function(){
 		if (playerA.getState() != "PAUSED") {
 			playerA.pause(true);
+			console.log('pauseFromServer');
 		}
-		console.log('pauseFromServer');
 	});
 
 	socket.on('seek', function(data){
