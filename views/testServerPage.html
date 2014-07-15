@@ -4,11 +4,24 @@
 	<title> VIRTUAL SOFA </title>
 	<script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="js/jwplayer.js"></script>
 </head>
 <body>
 	<h1>VIRTUAL COUCH!</h1>
 	<input id = "message" />
 	<button id="emitButton"> SEND </button>
 	<script src="/js/main.js"></script>
+	<div id='playerA'>
+	</div>
+	<script type='text/javascript'>
+    jwplayer('playerA').setup({
+    // URL to the video file
+    file: 'images/test.mov',
+    title: 'Sample',
+    width: '640px',
+    height: '360px',
+    aspectratio: '16:9'
+  	});
+	</script>
 </body>
 </html>
