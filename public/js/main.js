@@ -29,7 +29,7 @@
 	});
 
 	jwplayer('playerA').onSeek(function(position, offset){
-		socket.emit('seek', {offset: offset});
+		socket.emit('seek', {data: offset});
 		console.log('seek');
 	});
 
