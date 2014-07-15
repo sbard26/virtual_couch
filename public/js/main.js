@@ -20,15 +20,17 @@
 	//events from player sent to server
 	jwplayer('playerA').onPlay(function(oldState){
 		socket.emit('play');
+		console.log("onPlay");
 	});
 
 	jwplayer('playerA').onPause(function(oldState){
 		socket.emit('pause');
+		console.log("onPause");
 	});
 
 	jwplayer('playerA').onSeek(function(offset){
 		socket.emit('seek', offset);
-		console.log('seek');
+		console.log('onSeek');
 	});
 
 	

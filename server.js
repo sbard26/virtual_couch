@@ -11,10 +11,14 @@ var view = __dirname + '/views';
 app.use(express.static(pub));
 app.use(express.static(view));
 
+
 io.on('connection', function(socket){
 	console.log('connected');
+	socket.join("room");
+
 	socket.on('disconnect', function() {
 		console.log('disconnect');
+		socket.leave(socket.room);
 	});
 
 	socket.on('chat', function(msg){
@@ -22,14 +26,14 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(){
-		socket.broadcast.emit('play');
+		socket.broadcast.to(socket.room).emit('play');
 	});
 
 	socket.on('pause', function(){
-		socket.broadcast.emit('pause');
+		socket.broadcast.to(socket.room).emit('pause');
 	});
 
 	socket.on('seek', function(offset){
-		socket.broadcast.emit('seek', offset);
+		socket.broadcast.to(socket.room).emit('seek', offset);
 	});
 });
