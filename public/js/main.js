@@ -1,10 +1,7 @@
 (function(){
 	var socket = io();
 
-	socket.on('firstShow', function(data) {
-		$('body').append(data.data);
-	});
-
+	//events from server
 	socket.on('play', function(){
 		jwplayer('playerA').play(true);
 		console.log('playFromServer');
@@ -17,9 +14,11 @@
 
 	socket.on('seek', function(data){
 		jwplayer('playerA').seek(data.offset);
+		jwplayer('playerA').pause(true);
 		console.log('seekFromServer');
 	});
 
+	//events from player sent to server
 	jwplayer('playerA').onPlay(function(oldState){
 		socket.emit('play');
 	});
