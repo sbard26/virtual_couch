@@ -14,7 +14,8 @@ app.use(express.static(view));
 
 io.on('connection', function(socket){
 	console.log('connected');
-	socket.join("room");
+	socket.join("room1");
+	socket.room = "room1";
 
 	socket.on('disconnect', function() {
 		console.log('disconnect');
