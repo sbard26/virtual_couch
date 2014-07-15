@@ -13,6 +13,7 @@ app.use(express.static(view));
 
 io.on('connection', function(socket){
 	console.log('connected');
+
 	socket.on('disconnect', function() {
 		console.log('disconnect');
 	});
@@ -22,14 +23,14 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(){
-		socket.broadcast.emit('play');
+		socket.emit('play');
 	});
 
 	socket.on('pause', function(){
-		socket.broadcast.emit('pause');
+		socket.emit('pause');
 	});
 
 	socket.on('seek', function(offset){
-		socket.broadcast.emit('seek', offset);
+		socket.emit('seek', offset);
 	});
 });
