@@ -22,11 +22,11 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(){
-		io.emit('play');
+		socket.broadcast.emit('play');
 	});
 
 	socket.on('pause', function(){
-		io.emit('pause');
+		socket.broadcast.emit('pause');
 	});
 
 	socket.on('seek', function(offset){
