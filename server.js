@@ -20,4 +20,16 @@ io.on('connection', function(socket){
 	socket.on('chat', function(msg){
 		console.log(msg);
 	});
+
+	socket.on('play', function(){
+		io.emit('play');
+	});
+
+	socket.on('pause', function(){
+		io.emit('pause');
+	});
+
+	socket.on('seek', function(data){
+		io.emit('seek', data.offset);
+	});
 });
