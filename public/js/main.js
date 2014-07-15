@@ -7,14 +7,17 @@
 
 	socket.on('play', function(){
 		jwplayer('playerA').play(true);
+		console.log('playFromServer');
 	});
 
 	socket.on('pause', function(){
 		jwplayer('playerA').pause(true);
+		console.log('pauseFromServer');
 	});
 
 	socket.on('seek', function(data){
 		jwplayer('playerA').seek(data.offset);
+		console.log('seekFromServer');
 	});
 
 	jwplayer('playerA').onPlay(function(oldState){
@@ -26,7 +29,7 @@
 	});
 
 	jwplayer('playerA').onSeek(function(position, offset){
-		socket.emit('seek', {"offset":offset});
+		socket.emit('seek', {offset: 'offset'});
 		console.log('seek');
 	});
 
