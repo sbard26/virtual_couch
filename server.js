@@ -12,10 +12,10 @@ app.use(express.static(pub));
 app.use(express.static(view));
 
 io.on('connection', function(socket){
-	console.log('connected');
-	socket.on('disconnect', function() {
-		console.log('disconnect');
-	});
+	socket.join('room');
+  	socket.on('disconnect', function(id){
+    	console.log('disconnect' + id);
+  	});
 
 	socket.on('chat', function(msg){
 		console.log(msg);
@@ -30,6 +30,6 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('seek', function(offset){
-		io.emit('seek', offset);
+		socket.broadcast.emit('seek', offset);
 	});
 });
