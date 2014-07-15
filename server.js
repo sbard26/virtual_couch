@@ -12,10 +12,10 @@ app.use(express.static(pub));
 app.use(express.static(view));
 
 io.on('connection', function(socket){
-	socket.join('room');
-  	socket.on('disconnect', function(id){
-    	console.log('disconnect' + id);
-  	});
+	console.log('connected');
+	socket.on('disconnect', function() {
+		console.log('disconnect');
+	});
 
 	socket.on('chat', function(msg){
 		console.log(msg);
