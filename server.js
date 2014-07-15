@@ -34,7 +34,7 @@ io.on('connection', function(socket){
 		socket.broadcast.to(socket.room).emit('pause');
 	});
 
-	socket.on('seek', function(offset){
-		socket.broadcast.to(socket.room).emit('seek', offset);
+	socket.on('seek', function(position, offset){
+		socket.broadcast.to(socket.room).emit('seek', position, offset);
 	});
 });

@@ -34,6 +34,7 @@
 	});
 
 	playerA.onSeek(function(offset){
+		playerA.pause(true);
 		socket.emit('seek', offset);
 		console.log('onSeek');
 	});
