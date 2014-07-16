@@ -24,8 +24,7 @@
 			playerA.seek(position);
 			console.log('timeFromServer' + position);
 		}
-		console.log('timeFromServer' + position + " " + playerA.getPosition());
-		console.log(timeDifference);
+		console.log('timeFromServer ' + position + " " + playerA.getPosition());
 	});
 
 	socket.on('rewind', function(){
@@ -56,7 +55,7 @@
 
 	var onTimeCalls = 0;
 	playerA.onTime(function(data){
-		if (onTimeCalls == 15 && playerA.getState() == "PLAYING") {
+		if (onTimeCalls == 10 && playerA.getState() == "PLAYING") {
 			socket.emit('time', data.position);
 			console.log('time ' + data.position);
 			onTimeCalls = 0;
@@ -64,7 +63,6 @@
 			onTimeCalls = 0;
 		}
 		onTimeCalls++;
-		//console.log(onTimeCalls);
 	});
 	
 	$('#emitButton').click(function() {
