@@ -5,17 +5,11 @@
 
 	//events from server
 	socket.on('play', function(){
-		if (playerA.getState() != "PLAYING") {
-			playerA.play(true);		
-			console.log('playFromServer');
-		}
+		playerA.play(true);
 	});
 
 	socket.on('pause', function(){
-		if (playerA.getState() != "PAUSED") {
-			playerA.pause(true);
-			console.log('pauseFromServer');
-		}
+		playerA.pause(true);
 	});
 
 	socket.on('time', function(data) {
@@ -26,15 +20,21 @@
 		}
 	});
 
-	//events from player sent to server
-	playerA.onPlay(function(oldState){
-		socket.emit('play');
-		console.log("onPlay");
+	socket.on('rewind', function(){
+		var position = playerA.getPosition(playerA);
+		position -= 5;
+		playerA.seek(position);
 	});
 
-	playerA.onPause(function(oldState){
+
+	//events from player sent to server
+
+	$('#play').click(function() {
+		socket.emit('play');
+	});
+
+	$('#pause').click(function() {
 		socket.emit('pause');
-		console.log("onPause");
 	});
 
 	var onTimeCalls = 0;
@@ -52,6 +52,5 @@
 		$('#message').val('');
 		return false;
 	});
-
 
 })(this);

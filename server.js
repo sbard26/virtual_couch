@@ -27,14 +27,23 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(){
-		socket.broadcast.to(socket.room).emit('play');
+		io.emit('play');
 	});
 
 	socket.on('pause', function(){
-		socket.broadcast.to(socket.room).emit('pause');
+		io.emit('pause');
 	});
 
 	socket.on('time', function(data){
 		socket.broadcast.to(socket.room).emit('time', data);
 	});
+
+	socket.on('rewind', function(){
+		io.emit('rewind');
+	});
+
+	socket.on('chat message', function(msg){
+    	io.emit('chat message', msg);
+  	});
 });
+
