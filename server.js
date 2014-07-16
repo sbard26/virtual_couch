@@ -25,6 +25,7 @@ io.on('connection', function(socket){
 
 	socket.on('addUser', function(username){
 		room = socket.id;
+		console.log(socket.id);
 		users[username] = room;
 		console.log('User Added: ' + username + "in " + room);
 	});
@@ -40,6 +41,7 @@ io.on('connection', function(socket){
 
 	socket.on('play', function(){
 		io.sockets.connected[socket.id].emit('play');
+		console.log(partners[socket.id]);
 		if(partners[socket.id]){
 			io.sockets.connected[partners[socket.id]].emit('play');
 		};
@@ -47,6 +49,7 @@ io.on('connection', function(socket){
 
 	socket.on('pause', function(){
 		io.sockets.connected[socket.id].emit('pause');
+		console.log(partners[socket.id]);
 		if(partners[socket.id]){
 			io.sockets.connected[partners[socket.id]].emit('pause');
 		};
@@ -54,6 +57,7 @@ io.on('connection', function(socket){
 
 	socket.on('rewind', function(){
 		io.sockets.connected[socket.id].emit('rewind');
+		console.log(partners[socket.id]);
 		if(partners[socket.id]){
 			io.sockets.connected[partners[socket.id]].emit('rewind');
 		};
@@ -61,6 +65,7 @@ io.on('connection', function(socket){
 
 	socket.on('skip', function(){
 		io.sockets.connected[socket.id].emit('skip');
+		console.log(partners[socket.id]);
 		if(partners[socket.id]){
 			io.sockets.connected[partners[socket.id]].emit('skip');
 		};
@@ -68,6 +73,7 @@ io.on('connection', function(socket){
 
 	socket.on('seek', function(data){
 		io.sockets.connected[socket.id].emit('seek', data);
+		console.log(partners[socket.id]);
 		if(partners[socket.id]){
 			io.sockets.connected[partners[socket.id]].emit('seek', data);
 		};
