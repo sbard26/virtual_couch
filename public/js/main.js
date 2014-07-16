@@ -22,7 +22,7 @@
 		var timeDifference = Math.abs(playerA.getPosition() - position);
 		if (timeDifference > 1) {
 			playerA.seek(position);
-			playerA.pause(position);
+			playerA.pause(true);
 			console.log('timeFromServer' + position);
 		}
 		console.log('timeFromServer ' + position + " " + playerA.getPosition());
