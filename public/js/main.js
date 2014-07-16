@@ -2,20 +2,13 @@
 	var socket = io();
 	playerA = jwplayer('playerA');
 
-
 	//events from server
 	socket.on('play', function(){
-		if(playerA.getState() != "PLAYING") {
-			playerA.play(true);
-			console.log("playFromServer");
-		}
+		playerA.play(true);
 	});
 
 	socket.on('pause', function(){
-		if (playerA.getState() != "PAUSED") {
-			playerA.pause(true);
-			console.log("pauseFromServer");
-		}
+		playerA.pause(true);
 	});
 
 	socket.on('rewind', function(){
@@ -32,34 +25,11 @@
 
 	socket.on('seek', function(seekTime) {
 		playerA.seek(seekTime);
-	})
+	});
 
-	// socket.on('time', function(position) {
-	// 	var timeDifference = Math.abs(playerA.getPosition() - position);
-	// 	if (timeDifference > 1) {
-	// 		playerA.seek(position);
-	// 		console.log('timeFromServer' + position);
-	// 	}
-	// 	console.log('timeFromServer ' + position + " " + playerA.getPosition());
-	// });
-
-
-
-
-	//events from player sent to server
-	// playerA.onPlay(function(){
-	// 	socket.emit('play');
-	// 	console.log("onPlay");
-	// });
-
-	// playerA.onPause(function() { 
-	// 	socket.emit('pause');
-	// 	console.log("onPause");
-	// });
-
-	// playerA.onSeek(function() {
-	// 	socket.emit('seek')
-	// })
+	socket.on('redirect', function(){
+		location.href = "testServerPage.html";
+	});
 
 	$('#play').click(function() {
 		socket.emit('play');
@@ -77,18 +47,30 @@
 		socket.emit('rewind');
 	});
 
-	document.getElementById('seekButton').onclick = function() {
-    	var seekTime = parseInt(document.getElementById('seekTime').value);
-    	console.log('seekSent' + seekTime)
-    	socket.emit('seek', seekTime);
-	}
+	$('#seekButton').click(function() {
+       var seekTime = parseInt($('#seekTime').val());
+       socket.emit('seek', seekTime);
+    });
 
-	playerA.onTime(function(data){
-		var current = data.position;
-		var duration = playerA.getDuration();
-		$("#curTime").text(current.toString().toHHMMSS());
-		$("#totTime").text(duration.toString().toHHMMSS());
-	});
+   	$('#userButton').click(function() {
+       var userName = $('#userName').val();
+       socket.emit('addUser', userName);
+       console.log('addUser');
+    });
+
+   	$('#partnerButton').click( function() {
+       var partnerName = $('#partnerName').val();
+       socket.emit('match', partnerName);
+    });
+
+   	if(document.URL == "localhost:8080/testServerPage.html"){
+		playerA.onTime(function(data){
+			var current = data.position;
+			var duration = playerA.getDuration();
+			$("#curTime").text(current.toString().toHHMMSS());
+			$("#totTime").text(duration.toString().toHHMMSS());
+		});
+	};
 
 	String.prototype.toHHMMSS = function () {
     	var sec_num = parseInt(this, 10); // don't forget the second param
@@ -103,18 +85,6 @@
     	return time;
 	}
 
-	// var onTimeCalls = 0;
-	// playerA.onTime(function(data){
-	// 	if (onTimeCalls == 10 && playerA.getState() == "PLAYING") {
-	// 		socket.emit('time', data.position);
-	// 		console.log('time ' + data.position + ' ' + playerA.getState());
-	// 		onTimeCalls = 0;
-	// 	} else if (onTimeCalls == 10) {
-	// 		onTimeCalls = 0;
-	// 	}
-	// 	onTimeCalls++;
-	// });
-	
 	$('#emitButton').click(function() {
 		var input = $('#message').val();
 		console.log(input);

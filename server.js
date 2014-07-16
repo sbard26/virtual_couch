@@ -12,15 +12,25 @@ var times = [];
 app.use(express.static(pub));
 app.use(express.static(view));
 
+var users = new Object();
 
 io.on('connection', function(socket){
 	console.log('connected');
-	socket.join("room1");
-	socket.room = "room1";
 
 	socket.on('disconnect', function() {
 		console.log('disconnect');
 		socket.leave(socket.room);
+	});
+
+	socket.on('addUser', function(username){
+		room = socket.id;
+		users[username] = room;
+		console.log('User Added: ' + username + "in " + room);
+	});
+
+	socket.on('match', function(partnerName){
+		socket.id = users[partnerName];
+		socket.emit('redirect');
 	});
 
 	socket.on('chat', function(msg){
@@ -28,24 +38,25 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(){
-		io.emit('play');
+		io.sockets.in(socket.id).emit('play');
 	});
 
 	socket.on('pause', function(){
-		io.emit('pause');
+		io.sockets.in(socket.id).emit('pause');
 	});
 
 	socket.on('rewind', function(){
-		io.emit('rewind');
+		io.sockets.in(socket.id).emit('rewind');
 	});
 
 	socket.on('skip', function(){
-		io.emit('skip');
+		io.sockets.in(socket.id).emit('skip');
 	});
 
 	socket.on('seek', function(data){
-		io.emit('seek', data);
+		io.sockets.in(socket.id).emit('seek', data);
 	});
+    
 
 	// socket.on('play', function(){
 	// 	socket.broadcast.to(socket.room).emit('play');
