@@ -21,6 +21,7 @@
 	socket.on('time', function(position) {
 		var timeDifference = Math.abs(playerA.getPosition() - position);
 		if (timeDifference > 1) {
+			playerA.pause(position);
 			playerA.seek(position);
 			console.log('timeFromServer' + position);
 		}
@@ -55,11 +56,11 @@
 
 	var onTimeCalls = 0;
 	playerA.onTime(function(data){
-		if (onTimeCalls == 3 && playerA.getState() == "PLAYING") {
+		if (onTimeCalls == 6 && playerA.getState() == "PLAYING") {
 			socket.emit('time', data.position);
 			console.log('time ' + data.position + ' ' + playerA.getState());
 			onTimeCalls = 0;
-		} else if (onTimeCalls == 3) {
+		} else if (onTimeCalls == 6) {
 			onTimeCalls = 0;
 		}
 		onTimeCalls++;
