@@ -7,6 +7,7 @@ var request = ('request');
 
 var pub = __dirname + '/public';
 var view = __dirname + '/views';
+var times = [];
 
 app.use(express.static(pub));
 app.use(express.static(view));
@@ -27,20 +28,43 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(){
-		socket.broadcast.to(socket.room).emit('play');
+		io.emit('play');
 	});
 
 	socket.on('pause', function(){
-		socket.broadcast.to(socket.room).emit('pause');
-	});
-
-	socket.on('time', function(data){
-		socket.broadcast.to(socket.room).emit('time', data);
+		io.emit('pause');
 	});
 
 	socket.on('rewind', function(){
 		io.emit('rewind');
 	});
+
+	socket.on('skip', function(){
+		io.emit('skip');
+	});
+
+	socket.on('seek', function(data){
+		io.emit('seek', data);
+	});
+
+	// socket.on('play', function(){
+	// 	socket.broadcast.to(socket.room).emit('play');
+	// });
+
+	// socket.on('pause', function(){
+	// 	socket.broadcast.to(socket.room).emit('pause');
+	// });
+
+	// socket.on('time', function(data){
+	// 	times.push(data);
+	// 	if (data < times[times.length-1]){
+	// 	socket.broadcast.to(socket.room).emit('time', data);
+	// 	}
+	// 	else if (data - times[times.length-1] > 5){
+	// 		socket.broadcast.to(socket.room).emit('time', data);
+	// 	}
+	// });
+
 
 	socket.on('chat message', function(msg){
     	io.emit('chat message', msg);
