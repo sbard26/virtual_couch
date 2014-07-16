@@ -53,12 +53,16 @@
 		socket.emit('pause');
 	});
 
-
+	var onTimeCalls = 0;
 	playerA.onTime(function(data){
-		if (playerA.getState() == "PLAYING") {
+		if (onTimeCalls == 5 && playerA.getState() == "PLAYING") {
 			socket.emit('time', data.position);
 			console.log('time ' + data.position + ' ' + playerA.getState());
+			onTimeCalls = 0;
+		} else if (onTimeCalls == 5) {
+			onTimeCalls = 0;
 		}
+		onTimeCalls++;
 	});
 	
 	$('#emitButton').click(function() {
