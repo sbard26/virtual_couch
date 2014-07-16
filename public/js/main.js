@@ -64,7 +64,7 @@
 			socket.emit('time', data.position);
 			console.log('time ' + data.position + ' ' + playerA.getState());
 			onTimeCalls = 0;
-		} else if (onTimeCalls == 5g) {
+		} else if (onTimeCalls == 5) {
 			onTimeCalls = 0;
 		}
 		onTimeCalls++;
