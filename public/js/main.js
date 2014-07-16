@@ -2,6 +2,7 @@
 	var socket = io();
 	playerA = jwplayer('playerA');
 
+
 	//events from server
 	socket.on('play', function(){
 		if (playerA.getState() != "PLAYING") {
@@ -17,9 +18,12 @@
 		}
 	});
 
-	socket.on('seek', function(data){
-		playerA.seek(data.offset);
-		console.log('seekFromServer');
+	socket.on('time', function(data) {
+		var timeDifference = Math.abs(playerA.getPosition() - data.position);
+		if (timeDifference > 1) {
+			playerA.seek(data.position);
+			console.log('timeFromServer' + data.position);
+		}
 	});
 
 	//events from player sent to server
@@ -33,9 +37,12 @@
 		console.log("onPause");
 	});
 
-	playerA.onSeek(function(offset){
-		socket.emit('seek', offset);
-		console.log('onSeek');
+	var onTimeCalls = 0;
+	playerA.onTime(function(data){
+		if (onTimeCalls == 15) {
+			socket.emit('time', data.position);
+			console.log('time' + data.position);
+		}
 	});
 	
 	$('#emitButton').click(function() {
