@@ -12,8 +12,10 @@
 	});
 
 	socket.on('pause', function(){
+		if (playerA.getState() != "PAUSED") {
 			playerA.pause(true);
 			console.log("pauseFromServer");
+		}
 	});
 
 	socket.on('time', function(position) {
@@ -40,7 +42,7 @@
 	});
 
 	playerA.onPause(function() { 
-		soeket.emit('pause');
+		socket.emit('pause');
 		console.log("onPause");
 	});
 
