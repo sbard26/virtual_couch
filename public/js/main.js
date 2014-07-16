@@ -1,7 +1,7 @@
 (function(){
 	var socket = io();
 	playerA = jwplayer('playerA');
-
+	var host = false;
 
 	//events from server
 	socket.on('play', function(){
@@ -40,6 +40,11 @@
 		console.log("onPlay");
 	});
 
+	playerA.onSeek(function(){
+		host = true;
+		console.log("host change");
+	});
+
 	playerA.onPause(function() { 
 		socket.emit('pause');
 		console.log("onPause");
@@ -55,11 +60,11 @@
 
 	var onTimeCalls = 0;
 	playerA.onTime(function(data){
-		if (onTimeCalls == 5 && playerA.getState() == "PLAYING") {
+		if (onTimeCalls == 5 && playerA.getState() == "PLAYING" && host) {
 			socket.emit('time', data.position);
 			console.log('time ' + data.position + ' ' + playerA.getState());
 			onTimeCalls = 0;
-		} else if (onTimeCalls == 5) {
+		} else if (onTimeCalls == 5g) {
 			onTimeCalls = 0;
 		}
 		onTimeCalls++;
