@@ -13,6 +13,7 @@ app.use(express.static(pub));
 app.use(express.static(view));
 
 var users = new Object();
+var partners = new Object();
 
 io.on('connection', function(socket){
 	console.log('connected');
@@ -29,7 +30,7 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('match', function(partnerName){
-		socket.id = users[partnerName];
+		partners[socket.id] = users[partnerName];
 		socket.emit('redirect');
 	});
 
@@ -38,23 +39,28 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(){
-		io.sockets.in(socket.id).emit('play');
+		io.sockets.socket(socket.id).emit('play');
+		io.sockets.socket(partners[socket.id]).emit('play');
 	});
 
 	socket.on('pause', function(){
-		io.sockets.in(socket.id).emit('pause');
+		io.sockets.socket(socket.id).emit('pause');
+		io.sockets.socket(partners[socket.id]).emit('pause');
 	});
 
 	socket.on('rewind', function(){
-		io.sockets.in(socket.id).emit('rewind');
+		io.sockets.socket(socket.id).emit('rewind');
+		io.sockets.socket(partners[socket.id]).emit('rewind');
 	});
 
 	socket.on('skip', function(){
-		io.sockets.in(socket.id).emit('skip');
+		io.sockets.socket(socket.id).emit('skip');
+		io.sockets.socket(partners[socket.id]).emit('skip');
 	});
 
 	socket.on('seek', function(data){
-		io.sockets.in(socket.id).emit('seek', data);
+		io.sockets.socket(socket.id).emit('seek', data);
+		io.sockets.socket(partners[socket.id]).emit('seek', data);
 	});
     
 
