@@ -39,50 +39,40 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(){
-		io.sockets.socket(socket.id).emit('play');
-		io.sockets.socket(partners[socket.id]).emit('play');
+		io.sockets.connected[socket.id].emit('play');
+		if(partners[socket.id]){
+			io.sockets.connected[partners[socket.id]].emit('play');
+		};
 	});
 
 	socket.on('pause', function(){
-		io.sockets.socket(socket.id).emit('pause');
-		io.sockets.socket(partners[socket.id]).emit('pause');
+		io.sockets.connected[socket.id].emit('pause');
+		if(partners[socket.id]){
+			io.sockets.connected[partners[socket.id]].emit('pause');
+		};
 	});
 
 	socket.on('rewind', function(){
-		io.sockets.socket(socket.id).emit('rewind');
-		io.sockets.socket(partners[socket.id]).emit('rewind');
+		io.sockets.connected[socket.id].emit('rewind');
+		if(partners[socket.id]){
+			io.sockets.connected[partners[socket.id]].emit('rewind');
+		};
 	});
 
 	socket.on('skip', function(){
-		io.sockets.socket(socket.id).emit('skip');
-		io.sockets.socket(partners[socket.id]).emit('skip');
+		io.sockets.connected[socket.id].emit('skip');
+		if(partners[socket.id]){
+			io.sockets.connected[partners[socket.id]].emit('skip');
+		};
 	});
 
 	socket.on('seek', function(data){
-		io.sockets.socket(socket.id).emit('seek', data);
-		io.sockets.socket(partners[socket.id]).emit('seek', data);
+		io.sockets.connected[socket.id].emit('seek', data);
+		if(partners[socket.id]){
+			io.sockets.connected[partners[socket.id]].emit('seek', data);
+		};
 	});
     
-
-	// socket.on('play', function(){
-	// 	socket.broadcast.to(socket.room).emit('play');
-	// });
-
-	// socket.on('pause', function(){
-	// 	socket.broadcast.to(socket.room).emit('pause');
-	// });
-
-	// socket.on('time', function(data){
-	// 	times.push(data);
-	// 	if (data < times[times.length-1]){
-	// 	socket.broadcast.to(socket.room).emit('time', data);
-	// 	}
-	// 	else if (data - times[times.length-1] > 5){
-	// 		socket.broadcast.to(socket.room).emit('time', data);
-	// 	}
-	// });
-
-
 	socket.on('chat message', function(msg){
     	io.emit('chat message', msg);
   	});
