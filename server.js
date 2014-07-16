@@ -27,11 +27,11 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(){
-		io.emit('play');
+		socket.broadcast.to(socket.room).emit('play');
 	});
 
 	socket.on('pause', function(){
-		io.emit('pause');
+		socket.broadcast.to(socket.room).emit('pause');
 	});
 
 	socket.on('time', function(data){

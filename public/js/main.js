@@ -5,19 +5,27 @@
 
 	//events from server
 	socket.on('play', function(){
-		playerA.play(true);
+		if(playerA.getState() != "PLAYING") {
+			playerA.play(true);
+			console.log("playFromServer");
+		}
 	});
 
 	socket.on('pause', function(){
-		playerA.pause(true);
+		if (playerA.getState() != "PAUSED") {
+			playerA.pause(true);
+			console.log("pauseFromServer");
+		}
 	});
 
-	socket.on('time', function(data) {
-		var timeDifference = Math.abs(playerA.getPosition() - data.position);
+	socket.on('time', function(position) {
+		var timeDifference = Math.abs(playerA.getPosition() - position);
 		if (timeDifference > 1) {
-			playerA.seek(data.position);
-			console.log('timeFromServer' + data.position);
+			playerA.seek(position);
+			console.log('timeFromServer' + position);
 		}
+		console.log('timeFromServer' + position + " " + playerA.getPosition());
+		console.log(timeDifference);
 	});
 
 	socket.on('rewind', function(){
@@ -28,6 +36,15 @@
 
 
 	//events from player sent to server
+	playerA.onPlay(function(){
+		socket.emit('play');
+		console.log("onPlay");
+	});
+
+	playerA.onPause(function() { 
+		soeket.emit('pause');
+		console.log("onPause");
+	});
 
 	$('#play').click(function() {
 		socket.emit('play');
@@ -39,10 +56,15 @@
 
 	var onTimeCalls = 0;
 	playerA.onTime(function(data){
-		if (onTimeCalls == 15) {
+		if (onTimeCalls == 15 && playerA.getState() == "PLAYING") {
 			socket.emit('time', data.position);
-			console.log('time' + data.position);
+			console.log('time ' + data.position);
+			onTimeCalls = 0;
+		} else if (onTimeCalls == 15) {
+			onTimeCalls = 0;
 		}
+		onTimeCalls++;
+		//console.log(onTimeCalls);
 	});
 	
 	$('#emitButton').click(function() {
