@@ -57,7 +57,7 @@
 	playerA.onTime(function(data){
 		if (onTimeCalls == 10 && playerA.getState() == "PLAYING") {
 			socket.emit('time', data.position);
-			console.log('time ' + data.position);
+			console.log('time ' + data.position + ' ' + playerA.getState());
 			onTimeCalls = 0;
 		} else if (onTimeCalls == 15) {
 			onTimeCalls = 0;
