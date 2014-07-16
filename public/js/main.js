@@ -21,8 +21,8 @@
 	socket.on('time', function(position) {
 		var timeDifference = Math.abs(playerA.getPosition() - position);
 		if (timeDifference > 1) {
-			playerA.pause(position);
 			playerA.seek(position);
+			playerA.pause(position);
 			console.log('timeFromServer' + position);
 		}
 		console.log('timeFromServer ' + position + " " + playerA.getPosition());
