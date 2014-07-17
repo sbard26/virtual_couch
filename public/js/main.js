@@ -55,7 +55,7 @@
 
 	$('#pause').click(function() {
 		var userName = name[0];
-		socket.emit('pause');
+		socket.emit('pause', userName);
 	});
 
    	$('#userButton').click(function() {
