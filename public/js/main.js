@@ -54,21 +54,9 @@
 	});
 
 	$('#pause').click(function() {
+		var userName = name[0];
 		socket.emit('pause');
 	});
-
-	$('#skip').click(function() {
-		socket.emit('skip');
-	});
-
-	$('#rewind').click(function() {
-		socket.emit('rewind');
-	});
-
-	$('#seekButton').click(function() {
-       var seekTime = parseInt($('#seekTime').val());
-       socket.emit('seek', seekTime);
-    });
 
    	$('#userButton').click(function() {
        var userName = $('#userName').val();
@@ -79,19 +67,13 @@
        var partnerName = $('#partnerName').val();
        socket.emit('match', partnerName);
     });
-
-	playerA.onTime(function(data){
-		var current = data.position;
-		var duration = playerA.getDuration();
-		$("#curTime").text(current.toString().toHHMMSS());
-		$("#totTime").text(duration.toString().toHHMMSS());
-	});
  	
  	$( "#slider" ).slider({ 
  		step: .1,
  		stop: function(event, ui) {
- 			socket.emit('seek', ui.value);
- 			console.log('seekSent' + ui.value);
+ 			var userName = name[0];
+ 			var seekTime = ui.value;
+ 			socket.emit('seek', seekTime, userName);
  			isSliding = false;
  		},
  		start: function(event, ui) {

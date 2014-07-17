@@ -54,20 +54,20 @@ io.on('connection', function(socket){
 		}
 	});
 
-	socket.on('pause', function(){
-		io.sockets.connected[socket.rooms[0]].emit('pause');
-	});
-
-	socket.on('rewind', function(){
-		io.sockets.connected[socket.rooms[0]].emit('rewind');
-	});
-
-	socket.on('skip', function(){
-		io.sockets.connected[socket.rooms[0]].emit('skip');
+	socket.on('pause', function(userName){
+		io.sockets.in(userName).emit('pause');
+		if(partners[userName])
+		{
+			io.sockets.in(partners[userName]).emit('pause');
+		}	
 	});
 
 	socket.on('seek', function(data){
-		io.sockets.connected[socket.rooms[0]].emit('seek', data);
+		io.sockets.in(data.userName).emit('seek', data.seekTime);
+		if(partners[data.userName])
+		{
+			io.sockets.in(partners[data.userName]).emit('seek', data.seekTime);
+		}
 	});
     
 	socket.on('chat message', function(msg){
