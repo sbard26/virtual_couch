@@ -1,6 +1,7 @@
 (function(){
 	var socket = io();
 	playerA = jwplayer('playerA');
+	var duration = playerA.getDuration();
 
 
 	//events from server
@@ -32,7 +33,7 @@
 
 	socket.on('seek', function(seekTime) {
 		playerA.seek(seekTime);
-	})
+	});
 
 	// socket.on('time', function(position) {
 	// 	var timeDifference = Math.abs(playerA.getPosition() - position);
@@ -77,17 +78,34 @@
 		socket.emit('rewind');
 	});
 
-	document.getElementById('seekButton').onclick = function() {
-    	var seekTime = parseInt(document.getElementById('seekTime').value);
-    	console.log('seekSent' + seekTime)
+	$('#seekButton').click( function() {
+    	var seekTime = parseInt($('#seekTime').val());
+    	console.log('seekSent' + seekTime);
     	socket.emit('seek', seekTime);
-	}
+	});
 
+ 	$( "#slider" ).slider({ 
+ 		step: .1,
+ 		stop: function(event, ui) {
+ 			socket.emit('seek', ui.value);
+ 			console.log('seekSent' + ui.value);
+ 		}
+ 	});
+
+ 	setInterval
+
+ 	var onTimeCalls = 0;
 	playerA.onTime(function(data){
 		var current = data.position;
-		var duration = playerA.getDuration();
+		duration = playerA.getDuration();
 		$("#curTime").text(current.toString().toHHMMSS());
 		$("#totTime").text(duration.toString().toHHMMSS());
+		if (onTimeCalls == 5) {
+			$( "#slider" ).slider( "option", "max", duration );
+			$('#slider').slider("option", "value", current);
+			onTimeCalls = 0;
+		}
+		onTimeCalls++;
 	});
 
 	String.prototype.toHHMMSS = function () {

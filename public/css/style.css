@@ -1,0 +1,98 @@
+.main-container {
+    background: url(/images/pattern.png) repeat 0 0;
+}
+
+.jumbotron {
+    background: none;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Dosis', sans-serif;
+}
+
+p, div {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    background-image: url("/images/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    min-height: 100%;
+    background-attachment: fixed;
+}
+
+.socket {
+    margin-top: 5px;
+    margin-left: 300px;
+}
+
+.inactive {
+    color: black;
+}
+
+.msg {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.container-narrow {
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+.jumbotron {
+    padding-top: 0px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.jumbotron h1 {
+    font-size: 47px;
+    line-height: 1;
+}
+
+.jumbotron h2 {
+    font-size: 44px;
+    line-height: 1;
+}
+
+.jumbotron.btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.marketing {
+    margin: 60px 0;
+}
+
+.marketing p + h4 {
+    margin
+    -top: 28px;
+}
+
+#play, #pause {
+    float: left;
+    background: #FFFFFF;
+}
+
+.glyphicon {
+    top: 0;
+}
+
+#video-controls {
+    display: inline-block;
+    width: 100%;
+}
+
+#slider {
+    top: 2px;
+}
+
+.ui-slider-handle {
+    border-radius: 10px;
+}
