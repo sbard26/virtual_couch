@@ -12,38 +12,46 @@ var times = [];
 app.use(express.static(pub));
 app.use(express.static(view));
 
-var users = {};
+var userList = [];
 var partners = {};
 
 io.on('connection', function(socket){
-	console.log('connected');
 
 	socket.on('addUser', function(userName){
-		console.log(userName);
-		console.log(socket.rooms[0]);
-		var room = socket.rooms[0];
-		users[userName] = room;
-		socket.emit('created');
+		userList.push(userName);
+		socket.join(userName);
+		socket.emit('created', userName);
 	});
 
 	socket.on('match', function(partnerName){
-		if(users[partnerName]){
-			socket.join(users[partnerName]);
-			socket.emit('match');
+		if(userList.indexOf(partnerName) > -1)
+		{
+			socket.join(partnerName);
+			socket.emit('match', partnerName);
 		}
-		else{
-			console.log(users[partnerName]);
+		else
+		{
 			socket.emit('noMatch');
 		}
 	});
+
+	socket.on('set', function(data){
+		partners[data.userName] = data.partnerName;
+		partners[data.partnerName] = data.userName;
+	})
 
 	socket.on('chat', function(msg){
 		console.log(msg);
 	});
 
-	socket.on('play', function(){
-		io.sockets.connected[socket.rooms[0]].emit('play');
-		console.log(socket.rooms[0]);
+	socket.on('play', function(userName){
+		console.log(userName);
+		io.sockets.in(userName).emit('play');
+		if(partners[userName])
+		{
+			console.log("play partner");
+			io.sockets.in(partners[userName]).emit('play');
+		}
 	});
 
 	socket.on('pause', function(){

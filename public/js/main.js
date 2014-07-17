@@ -1,7 +1,9 @@
 (function(){
 	var socket = io();
 	playerA = jwplayer('playerA');
-	
+	var info = {};
+	var name = [];
+
 	//events from server
 	socket.on('play', function(){
 		playerA.play(true);
@@ -27,11 +29,16 @@
 		playerA.seek(seekTime);
 	});
 
-	socket.on('created', function(){
+	socket.on('created', function(userName){
+		name.push(userName);
+		info[userName] = " ";
 		$("#created").text("Created! Enjoy!");
 	});
 
-	socket.on('match', function(){
+	socket.on('match', function(partnerName){
+		var userName = name[0];
+		info[userName] = partnerName;
+		socket.emit('set', userName, partnerName);
 		$("#match").text("Matched! Enjoy!");
 	});
 
@@ -40,7 +47,8 @@
 	});
 
 	$('#play').click(function() {
-		socket.emit('play');
+		var userName = name[0];
+		socket.emit('play', userName);
 	});
 
 	$('#pause').click(function() {
