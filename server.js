@@ -60,6 +60,7 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('seek', function(data){
+		console.log('seeking');
 		io.sockets.in(data.userName).emit('seek', data.seekTime);
 		if(partners[data.userName])
 		{
