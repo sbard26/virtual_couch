@@ -35,8 +35,8 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('set', function(data){
-		partners[data.userName] = data.partnerName;
-		partners[data.partnerName] = data.userName;
+		partners[data[0]] = data[1];
+		partners[data[1]] = data[0];
 	})
 
 	socket.on('chat', function(msg){
@@ -60,11 +60,10 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('seek', function(data){
-		console.log('seeking');
-		io.sockets.in(data.userName).emit('seek', data.seekTime);
-		if(partners[data.userName])
+		io.sockets.in(data[1]).emit('seek', data[0]);
+		if(partners[data[1]])
 		{
-			io.sockets.in(partners[data.userName]).emit('seek', data.seekTime);
+			io.sockets.in(partners[data[1]]).emit('seek', data[0]);
 		}
 	});
     

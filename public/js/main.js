@@ -29,7 +29,8 @@
 	socket.on('match', function(partnerName){
 		var userName = name[0];
 		info[userName] = partnerName;
-		socket.emit('set', userName, partnerName);
+		var data = [userName, partnerName];
+		socket.emit('set', data);
 		$("#match").text("Matched! Enjoy!");
 	});
 
@@ -62,8 +63,9 @@
  		stop: function(event, ui) {
  			var seekTime = ui.value;
  			var userName = name[0];
+ 			var data = [seekTime, userName];
  			console.log('seek send');
- 			socket.emit('seek', seekTime, userName);
+ 			socket.emit('seek', data);
  			isSliding = false;
  		},
  		start: function(event, ui) {
