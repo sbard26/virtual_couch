@@ -1,89 +1,110 @@
 <!DOCTYPE>
-<html>
+<html lang="en">
+
 <head>
-	<title> VIRTUAL COUCH </title>
-	<script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="js/jwplayer.js"></script>
-	<script src="js/bootstrap-slider.js"></script>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-    </style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VIRTUAL COUCH</title>
+  <link rel="shortcut icon" href="favicon.ico" />
+
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans|Dosis:400,800" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+  <script src="js/jwplayer.js"></script>
 </head>
+
 <body>
-	<h1>Virtual Sofa</h1>
-	<div id='playerA'>
-	</div>
-	<script type='text/javascript'>
-    jwplayer('playerA').setup({
-    // URL to the video file
-    file: 'images/test.mp4',
-    title: 'Sample',
-    width: '640px',
-    height: '360px',
-    aspectratio: '16:9',
-    controls: 'true'
-  	});
-	</script>
-	<button id="rewind">Rewind</button>
-	<button id="play">Play</button>
-	<button id="pause">Pause</button>
-	<button id="skip">Skip</button>
-	<div id="curTime">
-    
-  </div>
-  <input name="search" type="text" id="seekTime" class="searchField" />
-  <input type="submit" name="btnSearch" value="Seek" id="seekButton" class="buttonSearch"/>
-  <div id="totTime">
 
+  <div class="container-narrow main-container">
+    <div class="masterhead">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#">Home</a>
+        </li>
+        <li class="inactive"><a href="about.html">About</a>
+        </li>
+      </ul>
+    </div>
   </div>
-  
-  <h2>Create Your Username</h2>
-  <input name="search" type="text" id="userName" class="searchField" />
-  <input type="submit" name="btnSearch" value="Create" id="userButton" class="buttonSearch"/>
-  <script src="/js/main.js"></script>
-  
-  <div id = "created">
+    <!--player-->
+    <div class="jumbotron">
+      <h1>Virtual Couch</h1>
+      <div id='playerA'></div>
+      <script type='text/javascript'>
+      jwplayer('playerA').setup({
+                    // URL to the video file
+                    file: 'images/test.mp4',
+                    title: 'Sample',
+                    width: '640px',
+                    height: '360px',
+                    aspectratio: '16:9',
+                    controls: 'false'
+                  });
 
-  </div>
+      </script>
+      <div id="video-controls">
+        <button id="play" class="btn btn-xs"><span class="glyphicon glyphicon-play"></span></button>
+        <button id="pause" class="btn btn-xs"><span class="glyphicon glyphicon-pause"></span></button>
+        <div id="slider"></div>
+      </div>
+      <div id="curTime"></div>
+    </div>
+    <input name="search" type="text" id="seekTime" class="searchField" />
+    <input type="submit" name="btnSearch" value="Seek" id="seekButton" class="buttonSearch"/>
+    <div id="totTime">
 
-  <h2>Choose Your Couchmate</h2>
-  <input name="search" type="text" id="partnerName" class="searchField" />
-  <input type="submit" name="btnSearch" value="Match" id="partnerButton" class="buttonSearch"/>
-  
-  <div id = "noMatch">
+    </div>
 
-  </div>
-  
-  <div id = "match">
+    <h2>Create Your Username</h2>
+    <input name="search" type="text" id="userName" class="searchField" />
+    <input type="submit" name="btnSearch" value="Create" id="userButton" class="buttonSearch"/>
+    <script src="/js/main.js"></script>
 
-  </div>
-  
-  <ul id="messages"></ul>
+    <div id = "created">
+
+    </div>
+
+    <h2>Choose Your Couchmate</h2>
+    <input name="search" type="text" id="partnerName" class="searchField" />
+    <input type="submit" name="btnSearch" value="Match" id="partnerButton" class="buttonSearch"/>
+
+    <div id = "noMatch">
+
+    </div>
+
+    <div id = "match">
+
+    </div>
+    <!-- MESSAGING -->
+    <ul id="messages"></ul>
     <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+      <input id="m" autocomplete="off" />
+      <button>Send</button>
     </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-      var socket = io();
-      $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
-      });
-      socket.on('chat message', function(msg){
-      	console.log(msg);
-        $('#messages').append($('<li>').text(msg));
-      });
+    var socket = io();
+    $('form').submit(function () {
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function (msg) {
+      console.log(msg);
+      $('#messages').append($('<li>').text(msg));
+    });
     </script>
-	<script src="/js/main.js"></script>
+
+  </div>
+
+  <div class="footer">
+    <p>&copy; Comcast 2014</p>
+  </div>
+
+  <script src="/js/main.js"></script>
 </body>
+
 </html>
