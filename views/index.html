@@ -1,15 +1,100 @@
 <!DOCTYPE>
-<html>
+<html lang="en">
+
 <head>
-  <title> VIRTUAL COUCH </title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VIRTUAL COUCH</title>
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans|Dosis:400,800" rel="stylesheet" type="text/css" />
   <script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
   <script src="js/jwplayer.js"></script>
-  <script src="js/bootstrap-slider.js"></script>
-
 </head>
-<body>
-  <h1>Virtual Sofa</h1>
 
+<body>
+
+  <div class="container-narrow main-container">
+    <div class="masterhead">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#">Home</a>
+        </li>
+        <li class="inactive"><a href="about.html">About</a>
+        </li>
+      </ul>
+    </div>
+    <!--player-->
+    <div class="jumbotron">
+      <h1>Virtual Couch</h1>
+      <div id='playerA'></div>
+      <script type='text/javascript'>
+        jwplayer('playerA').setup({
+          file: 'images/test.mp4',
+          title: 'Sample',
+          width: '640px',
+          height: '360px',
+          aspectratio: '16:9',
+          controls: 'false'
+        });
+      </script>
+      <div id="video-controls">
+        <button id="play" class="btn btn-xs"><span class="glyphicon glyphicon-play"></span></button>
+        <button id="pause" class="btn btn-xs"><span class="glyphicon glyphicon-pause"></span></button>
+        <div id="slider"></div>
+      </div>
+    </div>
+    <h2>Create Your Username</h2>
+    
+    <input name="search" type="text" id="userName" class="searchField" />
+    <input type="submit" name="btnSearch" value="Create" id="userButton" class="buttonSearch"/>
+    
+    <div id = "created">
+
+    </div>
+
+    <h2>Choose Your Couchmate</h2>
+    
+    <input name="search" type="text" id="partnerName" class="searchField" />
+    <input type="submit" name="btnSearch" value="Match" id="partnerButton" class="buttonSearch"/>
+
+    <div id = "noMatch">
+
+    </div>
+
+    <div id = "match">
+
+    </div>
+    
+    <!-- MESSAGING -->
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" />
+      <button>Send</button>
+    </form>
+    <script>
+      var socket = io();
+      $('form').submit(function () {
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function (msg) {
+        console.log(msg);
+        $('#messages').append($('<li>').text(msg));
+      });
+    </script>
+
+  </div>
+
+  <div class="footer">
+    <p>&copy; Comcast 2014</p>
+  </div>
+
+  <script src="/js/main.js"></script>
 </body>
 </html>
