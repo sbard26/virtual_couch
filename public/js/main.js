@@ -2,6 +2,7 @@
 	var socket = io();
 	playerA = jwplayer('playerA');
 	var duration = playerA.getDuration();
+	var isSliding = false;
 
 	//events from server
 	socket.on('play', function(){
@@ -47,6 +48,10 @@
  		stop: function(event, ui) {
  			socket.emit('seek', ui.value);
  			console.log('seekSent' + ui.value);
+ 			isSliding = false;
+ 		},
+ 		start: function(event, ui) {
+ 			isSliding = true;
  		}
  	});
 
@@ -56,11 +61,11 @@
 		duration = playerA.getDuration();
 		$("#curTime").text(current.toString().toHHMMSS());
 		$("#totTime").text(duration.toString().toHHMMSS());
-		if (onTimeCalls == 5) {
+		if (!isSliding) {
 			$( "#slider" ).slider( "option", "max", duration );
 			$('#slider').slider("option", "value", current);
-			onTimeCalls = 0;
 		}
+		onTimeCalls = 0;
 		onTimeCalls++;
 	});
 
