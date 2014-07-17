@@ -15,18 +15,6 @@
 		playerA.pause(true);
 	});
 
-	socket.on('rewind', function(){
-		var position = playerA.getPosition(playerA);
-		position -= 5;
-		playerA.seek(position);
-	});
-
-	socket.on('skip', function(){
-		var position = playerA.getPosition(playerA);
-		position += 5;
-		playerA.seek(position);
-	});
-
 	socket.on('seek', function(seekTime) {
 		playerA.seek(seekTime);
 	});
@@ -71,8 +59,8 @@
  	$( "#slider" ).slider({ 
  		step: .1,
  		stop: function(event, ui) {
+ 			var seekTime = ui.value
  			var userName = name[0];
- 			var seekTime = ui.value;
  			socket.emit('seek', seekTime, userName);
  			isSliding = false;
  		},

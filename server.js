@@ -7,7 +7,6 @@ var request = ('request');
 
 var pub = __dirname + '/public';
 var view = __dirname + '/views';
-var times = [];
 
 app.use(express.static(pub));
 app.use(express.static(view));
@@ -45,11 +44,9 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(userName){
-		console.log(userName);
 		io.sockets.in(userName).emit('play');
 		if(partners[userName])
 		{
-			console.log("play partner");
 			io.sockets.in(partners[userName]).emit('play');
 		}
 	});

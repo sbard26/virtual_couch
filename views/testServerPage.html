@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VIRTUAL COUCH</title>
   <link rel="shortcut icon" href="favicon.ico" />
-
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
@@ -29,46 +28,37 @@
         </li>
       </ul>
     </div>
-  </div>
     <!--player-->
     <div class="jumbotron">
       <h1>Virtual Couch</h1>
       <div id='playerA'></div>
       <script type='text/javascript'>
-      jwplayer('playerA').setup({
-                    // URL to the video file
-                    file: 'images/test.mp4',
-                    title: 'Sample',
-                    width: '640px',
-                    height: '360px',
-                    aspectratio: '16:9',
-                    controls: 'false'
-                  });
-
+        jwplayer('playerA').setup({
+          file: 'images/test.mp4',
+          title: 'Sample',
+          width: '640px',
+          height: '360px',
+          aspectratio: '16:9',
+          controls: 'false'
+        });
       </script>
       <div id="video-controls">
         <button id="play" class="btn btn-xs"><span class="glyphicon glyphicon-play"></span></button>
         <button id="pause" class="btn btn-xs"><span class="glyphicon glyphicon-pause"></span></button>
         <div id="slider"></div>
       </div>
-      <div id="curTime"></div>
     </div>
-    <input name="search" type="text" id="seekTime" class="searchField" />
-    <input type="submit" name="btnSearch" value="Seek" id="seekButton" class="buttonSearch"/>
-    <div id="totTime">
-
-    </div>
-
     <h2>Create Your Username</h2>
+    
     <input name="search" type="text" id="userName" class="searchField" />
     <input type="submit" name="btnSearch" value="Create" id="userButton" class="buttonSearch"/>
-    <script src="/js/main.js"></script>
-
+    
     <div id = "created">
 
     </div>
 
     <h2>Choose Your Couchmate</h2>
+    
     <input name="search" type="text" id="partnerName" class="searchField" />
     <input type="submit" name="btnSearch" value="Match" id="partnerButton" class="buttonSearch"/>
 
@@ -79,6 +69,7 @@
     <div id = "match">
 
     </div>
+    
     <!-- MESSAGING -->
     <ul id="messages"></ul>
     <form action="">
@@ -86,16 +77,16 @@
       <button>Send</button>
     </form>
     <script>
-    var socket = io();
-    $('form').submit(function () {
-      socket.emit('chat message', $('#m').val());
-      $('#m').val('');
-      return false;
-    });
-    socket.on('chat message', function (msg) {
-      console.log(msg);
-      $('#messages').append($('<li>').text(msg));
-    });
+      var socket = io();
+      $('form').submit(function () {
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function (msg) {
+        console.log(msg);
+        $('#messages').append($('<li>').text(msg));
+      });
     </script>
 
   </div>
@@ -106,5 +97,4 @@
 
   <script src="/js/main.js"></script>
 </body>
-
 </html>
