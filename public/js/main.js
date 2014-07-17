@@ -24,6 +24,10 @@
 		name.push(userName);
 		info[userName] = " ";
 		$("#created").text("Created! Enjoy!");
+  		$("#jumbotron").show(1000);
+  		$("#partnerName").show(1500);
+  		$("#chat").show(2000);
+  		$("#userName").hide();
 	});
 
 	socket.on('match', function(partnerName){
