@@ -22,6 +22,15 @@ body {
     background-attachment: fixed;
 }
 
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 45px;
+    background-color: #FFFFFF;
+    border-top: solid #000 1px;
+}
+
 .inactive {
     color: black;
 }
@@ -75,6 +84,10 @@ body {
     background: #FFFFFF;
 }
 
+#m {
+    width:100%;
+}
+
 .glyphicon {
     top: 0;
 }
@@ -84,10 +97,35 @@ body {
     width: 100%;
 }
 
+.btn {
+    background: #FFFFFF;
+}
+
 #slider {
-    top: -10px;
+    width: 90%;
+    float: right;
+    top: 2;
 }
 
 .ui-slider-handle {
     border-radius: 10px;
+}
+
+#messageTextField {
+    margin-top: 9px;
+}
+
+#messages {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background: #FFF;
+    border: #cfcfcf solid 1px;
+    width: 20%;
+    padding-left: 10px;
+}
+
+#messages li {
+    list-style-type: none;
 }
