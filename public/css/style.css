@@ -22,11 +22,6 @@ body {
     background-attachment: fixed;
 }
 
-.socket {
-    margin-top: 5px;
-    margin-left: 300px;
-}
-
 .inactive {
     color: black;
 }

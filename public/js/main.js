@@ -3,7 +3,6 @@
 	playerA = jwplayer('playerA');
 	var duration = playerA.getDuration();
 
-
 	//events from server
 	socket.on('play', function(){
 		if(playerA.getState() != "PLAYING") {
@@ -35,53 +34,12 @@
 		playerA.seek(seekTime);
 	});
 
-	// socket.on('time', function(position) {
-	// 	var timeDifference = Math.abs(playerA.getPosition() - position);
-	// 	if (timeDifference > 1) {
-	// 		playerA.seek(position);
-	// 		console.log('timeFromServer' + position);
-	// 	}
-	// 	console.log('timeFromServer ' + position + " " + playerA.getPosition());
-	// });
-
-
-
-
-	//events from player sent to server
-	// playerA.onPlay(function(){
-	// 	socket.emit('play');
-	// 	console.log("onPlay");
-	// });
-
-	// playerA.onPause(function() { 
-	// 	socket.emit('pause');
-	// 	console.log("onPause");
-	// });
-
-	// playerA.onSeek(function() {
-	// 	socket.emit('seek')
-	// })
-
 	$('#play').click(function() {
 		socket.emit('play');
 	});
 
 	$('#pause').click(function() {
 		socket.emit('pause');
-	});
-
-	$('#skip').click(function() {
-		socket.emit('skip');
-	});
-
-	$('#rewind').click(function() {
-		socket.emit('rewind');
-	});
-
-	$('#seekButton').click( function() {
-    	var seekTime = parseInt($('#seekTime').val());
-    	console.log('seekSent' + seekTime);
-    	socket.emit('seek', seekTime);
 	});
 
  	$( "#slider" ).slider({ 
@@ -91,8 +49,6 @@
  			console.log('seekSent' + ui.value);
  		}
  	});
-
- 	setInterval
 
  	var onTimeCalls = 0;
 	playerA.onTime(function(data){
@@ -120,25 +76,5 @@
     	var time    = hours+':'+minutes+':'+seconds;
     	return time;
 	}
-
-	// var onTimeCalls = 0;
-	// playerA.onTime(function(data){
-	// 	if (onTimeCalls == 10 && playerA.getState() == "PLAYING") {
-	// 		socket.emit('time', data.position);
-	// 		console.log('time ' + data.position + ' ' + playerA.getState());
-	// 		onTimeCalls = 0;
-	// 	} else if (onTimeCalls == 10) {
-	// 		onTimeCalls = 0;
-	// 	}
-	// 	onTimeCalls++;
-	// });
-	
-	$('#emitButton').click(function() {
-		var input = $('#message').val();
-		console.log(input);
-		socket.emit('chat', input);
-		$('#message').val('');
-		return false;
-	});
 
 })(this);

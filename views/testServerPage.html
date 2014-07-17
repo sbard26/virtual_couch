@@ -29,11 +29,6 @@
                 </li>
                 <li class="inactive"><a href="about.html">About</a>
                 </li>
-                <li class="socket">
-                    <input id="message" />
-                    <button id="emitButton">Send</button>
-                </li>
-
             </ul>
         </div>
 
@@ -49,21 +44,16 @@
                     width: '640px',
                     height: '360px',
                     aspectratio: '16:9',
-                    controls: 'true'
+                    controls: 'false'
                 });
 
             </script>
             <div id="video-controls">
-                <!--<button id="rewind" class="btn btn-xs"><span class="glyphicon glyphicon-backward"></span></button>-->
                 <button id="play" class="btn btn-xs"><span class="glyphicon glyphicon-play"></span></button>
                 <button id="pause" class="btn btn-xs"><span class="glyphicon glyphicon-pause"></span></button>
                 <div id="slider"></div>
-                <!--<button id="skip" class="btn btn-xs"><span class="glyphicon glyphicon-forward"></span></button>-->
             </div>
             <div id="curTime"></div>
-            <input name="search" type="text" id="seekTime" class="searchField" />
-            <input type="submit" name="btnSearch" value="Seek" id="seekButton" class="buttonSearch" />
-            <div id="totTime"></div>
         </div>
 
         <!-- MESSAGING -->
@@ -87,11 +77,9 @@
 
     </div>
 
-
     <div class="footer">
         <p>&copy; Comcast 2014</p>
     </div>
-
 
     <script src="/js/main.js"></script>
 </body>
