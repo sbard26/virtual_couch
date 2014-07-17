@@ -27,7 +27,7 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('match', function(partnerName){
-		if(users[partnerName] == true){
+		if(users[partnerName]){
 			socket.join(users[partnerName]);
 			socket.emit('match');
 		}
