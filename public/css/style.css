@@ -1,10 +1,13 @@
 .main-container {
     background: url(/images/pattern.png) repeat 0 0;
+    text-align: center;
+    padding-bottom: 50px;
 }
 
 .jumbotron {
     background: none;
 }
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Dosis', sans-serif;
 }
@@ -25,10 +28,11 @@ body {
 .footer {
     position: fixed;
     bottom: 0;
-    width: 100%;
+    right: 0;
+    width: 20%;
     height: 45px;
     background-color: #FFFFFF;
-    border-top: solid #000 1px;
+    border: solid #cfcfcf 1px;
 }
 
 .inactive {
@@ -113,6 +117,8 @@ body {
 
 #messageTextField {
     margin-top: 9px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 #messages {
@@ -124,6 +130,7 @@ body {
     border: #cfcfcf solid 1px;
     width: 20%;
     padding-left: 10px;
+    overflow: auto;
 }
 
 #messages li {
