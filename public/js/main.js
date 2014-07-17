@@ -16,6 +16,7 @@
 	});
 
 	socket.on('seek', function(seekTime) {
+		console.log('SeekFromServer');
 		playerA.seek(seekTime);
 	});
 
@@ -61,6 +62,7 @@
  		stop: function(event, ui) {
  			var seekTime = ui.value;
  			var userName = name[0];
+ 			console.log('seek send');
  			socket.emit('seek', seekTime, userName);
  			isSliding = false;
  		},
