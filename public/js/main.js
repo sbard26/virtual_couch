@@ -59,7 +59,7 @@
  	$( "#slider" ).slider({ 
  		step: .1,
  		stop: function(event, ui) {
- 			var seekTime = ui.value
+ 			var seekTime = ui.value;
  			var userName = name[0];
  			socket.emit('seek', seekTime, userName);
  			isSliding = false;
