@@ -1,7 +1,7 @@
 (function(){
 	var socket = io();
 	playerA = jwplayer('playerA');
-
+	
 	//events from server
 	socket.on('play', function(){
 		playerA.play(true);
@@ -27,8 +27,16 @@
 		playerA.seek(seekTime);
 	});
 
-	socket.on('redirect', function(){
-		location.href = "testServerPage.html";
+	socket.on('created', function(){
+		$("#created").text("Created! Enjoy!");
+	});
+
+	socket.on('match', function(){
+		$("#match").text("Matched! Enjoy!");
+	});
+
+	socket.on('noMatch', function(){
+		$("#noMatch").text("No Match");
 	});
 
 	$('#play').click(function() {
@@ -55,7 +63,6 @@
    	$('#userButton').click(function() {
        var userName = $('#userName').val();
        socket.emit('addUser', userName);
-       console.log('addUser');
     });
 
    	$('#partnerButton').click( function() {

@@ -12,27 +12,29 @@ var times = [];
 app.use(express.static(pub));
 app.use(express.static(view));
 
-var users = new Object();
-var partners = new Object();
+var users = {};
+var partners = {};
 
 io.on('connection', function(socket){
 	console.log('connected');
 
-	socket.on('disconnect', function() {
-		console.log('disconnect');
-		socket.leave(socket.room);
-	});
-
-	socket.on('addUser', function(username){
-		room = socket.id;
-		console.log(socket.id);
-		users[username] = room;
-		console.log('User Added: ' + username + "in " + room);
+	socket.on('addUser', function(userName){
+		console.log(userName);
+		console.log(socket.rooms[0]);
+		var room = socket.rooms[0];
+		users[userName] = room;
+		socket.emit('created');
 	});
 
 	socket.on('match', function(partnerName){
-		partners[socket.id] = users[partnerName];
-		socket.emit('redirect');
+		if(users[partnerName] == true){
+			socket.join(users[partnerName]);
+			socket.emit('match');
+		}
+		else{
+			console.log(users[partnerName]);
+			socket.emit('noMatch');
+		}
 	});
 
 	socket.on('chat', function(msg){
@@ -40,47 +42,30 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('play', function(){
-		io.sockets.connected[socket.id].emit('play');
-		console.log(partners[socket.id]);
-		if(partners[socket.id]){
-			io.sockets.connected[partners[socket.id]].emit('play');
-		};
+		io.sockets.connected[socket.rooms[0]].emit('play');
+		console.log(socket.rooms[0]);
 	});
 
 	socket.on('pause', function(){
-		io.sockets.connected[socket.id].emit('pause');
-		console.log(partners[socket.id]);
-		if(partners[socket.id]){
-			io.sockets.connected[partners[socket.id]].emit('pause');
-		};
+		io.sockets.connected[socket.rooms[0]].emit('pause');
 	});
 
 	socket.on('rewind', function(){
-		io.sockets.connected[socket.id].emit('rewind');
-		console.log(partners[socket.id]);
-		if(partners[socket.id]){
-			io.sockets.connected[partners[socket.id]].emit('rewind');
-		};
+		io.sockets.connected[socket.rooms[0]].emit('rewind');
 	});
 
 	socket.on('skip', function(){
-		io.sockets.connected[socket.id].emit('skip');
-		console.log(partners[socket.id]);
-		if(partners[socket.id]){
-			io.sockets.connected[partners[socket.id]].emit('skip');
-		};
+		io.sockets.connected[socket.rooms[0]].emit('skip');
 	});
 
 	socket.on('seek', function(data){
-		io.sockets.connected[socket.id].emit('seek', data);
-		console.log(partners[socket.id]);
-		if(partners[socket.id]){
-			io.sockets.connected[partners[socket.id]].emit('seek', data);
-		};
+		io.sockets.connected[socket.rooms[0]].emit('seek', data);
 	});
     
 	socket.on('chat message', function(msg){
     	io.emit('chat message', msg);
   	});
+
+
 });
 
