@@ -85,7 +85,7 @@ body {
 }
 
 #slider {
-    top: 2px;
+    top: -10px;
 }
 
 .ui-slider-handle {
