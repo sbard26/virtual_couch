@@ -68,7 +68,6 @@ io.on('connection', function(socket){
 	});
     
 	socket.on('chat message', function(data){
-    	io.emit('chat message', msg);
 		io.sockets.in(data[1]).emit('chat message', data[0]);
 		if(partners[data[1]])
 		{

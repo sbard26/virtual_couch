@@ -112,22 +112,17 @@
 	}
 
 	$('form').submit(function () {
-      socket.emit('chat message', name[0] + ': ' + $('#m').val());
-      $('#m').val('');
-      return false;
+		var userName = name[0];
+		var msg = userName + ': ' + $('#m').val();
+		var data = [msg, userName];
+    	socket.emit('chat message', data);
+    	$('#m').val('');
+    	return false;
     });
+    
     socket.on('chat message', function (msg) {
       console.log(msg);
       $('#messages').append('<li>' + msg + '</li>');
     });
-
-	$('#emitButton').click(function() {
-		var input = $('#message').val();
-		var userName = name[0];
-		var data = [input, userName];
-		socket.emit('chat', data);
-		$('#message').val('');
-		return false;
-	});
 
 })(this);
