@@ -136,3 +136,7 @@ body {
 #messages li {
     list-style-type: none;
 }
+
+#xfinityLogo {
+    width: 100%;
+}
