@@ -22,13 +22,11 @@ io.on('connection', function(socket){
 		socket.emit('created', userName);
 	});
 
-	socket.on('match', function(data){
-		if(userList.indexOf(data[0]) > -1)
+	socket.on('match', function(partnerName){
+		if(userList.indexOf(partnerName) > -1)
 		{
-			socket.join(data[0]);
-			socket.emit('match', data[0]);
-			var msg = data[1] + " has joined the room.";
-			io.sockets.in(partnersName).emit('chat message', msg);
+			socket.join(partnerName);
+			socket.emit('match', partnerName);
 		}
 		else
 		{
@@ -39,6 +37,8 @@ io.on('connection', function(socket){
 	socket.on('set', function(data){
 		partners[data[0]] = data[1];
 		partners[data[1]] = data[0];
+		var msg = data[0] + " has joined.";
+		io.sockets.in(data[1]).emit('chat message', msg);
 	})
 
 	socket.on('chat', function(msg){
