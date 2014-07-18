@@ -49,6 +49,10 @@
 		}, 3000);
 	});
 
+    socket.on('chat message', function (msg) {
+      $('#messages').append('<li>' + msg + '</li>');
+    });
+	
 	$('#play').click(function() {
 		var userName = name[0];
 		socket.emit('play', userName);
@@ -66,7 +70,9 @@
 
    	$('#partnerButton').click( function() {
        var partnerName = $('#partnerName').val();
-       socket.emit('match', partnerName);
+       var userName = name[0];
+       var data = [partnerName, userName];
+       socket.emit('match', data);
     });
  	
  	$( "#slider" ).slider({ 
@@ -118,11 +124,6 @@
     	socket.emit('chat message', data);
     	$('#m').val('');
     	return false;
-    });
-    
-    socket.on('chat message', function (msg) {
-      console.log(msg);
-      $('#messages').append('<li>' + msg + '</li>');
     });
 
 })(this);

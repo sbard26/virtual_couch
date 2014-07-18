@@ -22,11 +22,13 @@ io.on('connection', function(socket){
 		socket.emit('created', userName);
 	});
 
-	socket.on('match', function(partnerName){
-		if(userList.indexOf(partnerName) > -1)
+	socket.on('match', function(data){
+		if(userList.indexOf(data[0]) > -1)
 		{
-			socket.join(partnerName);
-			socket.emit('match', partnerName);
+			socket.join(data[0]);
+			socket.emit('match', data[0]);
+			var msg = data[1] + " has joined the room.";
+			io.sockets.in(partnersName).emit('chat message', msg);
 		}
 		else
 		{
@@ -74,7 +76,7 @@ io.on('connection', function(socket){
 		}
 		else
 		{
-			io.sockets.in(data[1]).emit('chat message', data[0]);
+			gio.sockets.in(data[1]).emit('chat message', data[0]);
 		}
   	});
 
