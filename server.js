@@ -72,7 +72,7 @@ io.on('connection', function(socket){
 		}
 		else
 		{
-			gio.sockets.in(data[1]).emit('chat message', data[0]);
+			io.sockets.in(data[1]).emit('chat message', data[0]);
 		}
   	});
 
