@@ -123,8 +123,9 @@
 
 	$('#emitButton').click(function() {
 		var input = $('#message').val();
-		console.log(input);
-		socket.emit('chat', input);
+		var userName = name[0];
+		var data = [input, userName];
+		socket.emit('chat', data);
 		$('#message').val('');
 		return false;
 	});
