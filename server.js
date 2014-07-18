@@ -41,10 +41,6 @@ io.on('connection', function(socket){
 		io.sockets.in(data[1]).emit('chat message', msg);
 	})
 
-	socket.on('chat', function(msg){
-		console.log(msg);
-	});
-
 	socket.on('play', function(userName){
 		io.sockets.in(userName).emit('play');
 		if(partners[userName])

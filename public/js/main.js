@@ -70,9 +70,7 @@
 
    	$('#partnerButton').click( function() {
        var partnerName = $('#partnerName').val();
-       var userName = name[0];
-       var data = [partnerName, userName];
-       socket.emit('match', data);
+       socket.emit('match', partnerName);
     });
  	
  	$( "#slider" ).slider({ 
