@@ -1,10 +1,13 @@
 .main-container {
     background: url(/images/pattern.png) repeat 0 0;
+    text-align: center;
+    padding-bottom: 50px;
 }
 
 .jumbotron {
     background: none;
 }
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Dosis', sans-serif;
 }
@@ -20,6 +23,16 @@ body {
     width: 100%;
     min-height: 100%;
     background-attachment: fixed;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 20%;
+    height: 45px;
+    background-color: #FFFFFF;
+    border: solid #cfcfcf 1px;
 }
 
 .inactive {
@@ -75,6 +88,10 @@ body {
     background: #FFFFFF;
 }
 
+#m {
+    width:100%;
+}
+
 .glyphicon {
     top: 0;
 }
@@ -84,10 +101,42 @@ body {
     width: 100%;
 }
 
+.btn {
+    background: #FFFFFF;
+}
+
 #slider {
-    top: -10px;
+    width: 90%;
+    float: right;
+    top: 2;
 }
 
 .ui-slider-handle {
     border-radius: 10px;
+}
+
+#messageTextField {
+    margin-top: 9px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+#messages {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background: #FFF;
+    border: #cfcfcf solid 1px;
+    width: 20%;
+    padding-left: 10px;
+    overflow: auto;
+}
+
+#messages li {
+    list-style-type: none;
+}
+
+#xfinityLogo {
+    width: 100%;
 }

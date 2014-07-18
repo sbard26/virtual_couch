@@ -29,12 +29,12 @@
       </ul>
     </div>
     <!--player-->
+    <h1 style="text-align:center;">Xfinity Sync</h1>
     <div class="jumbotron">
-      <h1>Xfinity Sync</h1>
       <div id='playerA'></div>
       <script type='text/javascript'>
         jwplayer('playerA').setup({
-          file: 'images/test.mp4',
+          file: 'images/RedBull480.mp4',
           title: 'Sample',
           width: '640px',
           height: '360px',
@@ -48,51 +48,35 @@
         <div id="slider"></div>
       </div>
     </div>
-    <h2>Create Your Username</h2>
-    
-    <input name="search" type="text" id="userName" class="searchField" />
-    <input type="submit" name="btnSearch" value="Create" id="userButton" class="buttonSearch"/>
-    
-    <div id = "created">
-
+    <div id="creatUsername">
+      <h2>Create Your Username</h2>
+      
+      <input name="search" type="text" id="userName" class="searchField btn" />
+      <input type="submit" name="btnSearch" value="Create" id="userButton" class="buttonSearch btn"/>
     </div>
 
-    <h2>Choose Your Partner</h2>
-    
-    <input name="search" type="text" id="partnerName" class="searchField" />
-    <input type="submit" name="btnSearch" value="Match" id="partnerButton" class="buttonSearch"/>
-
-    <div id = "noMatch">
-
+    <div id = "created"></div>
+    <div id="chooseSyncmate">
+      <h2>Choose Your SyncMate</h2>
+      
+      <input name="search" type="text" id="partnerName" class="searchField btn" />
+      <input type="submit" name="btnSearch" value="Match" id="partnerButton" class="buttonSearch btn"/>
     </div>
 
-    <div id = "match">
-
-    </div>
-    
-    <!-- MESSAGING -->
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" />
-      <button>Send</button>
-    </form>
-    <script>
-      var socket = io();
-      $('form').submit(function () {
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
-      });
-      socket.on('chat message', function (msg) {
-        console.log(msg);
-        $('#messages').append($('<li>').text(msg));
-      });
-    </script>
-
+    <div id = "noMatch"></div>
+    <div id = "match"></div>
   </div>
 
+
+  <ul id="messages">
+    <img id="xfinityLogo" src="images/xfinity.png">
+    <hr>
+  </ul>
   <div class="footer">
-    <p>&copy; Comcast 2014</p>
+    <!-- MESSAGING --> 
+    <form id="messageTextField" action="">
+      <input id="m" autocomplete="off" />
+    </form>
   </div>
 
   <script src="/js/main.js"></script>

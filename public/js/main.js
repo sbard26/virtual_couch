@@ -5,6 +5,8 @@
 	var name = [];
 	var duration = playerA.getDuration();
 	var isSliding = false;
+	$(".jumbotron").hide();
+	$("#chooseSyncmate").hide();
 
 	//events from server
 	socket.on('play', function(){
@@ -24,10 +26,12 @@
 		name.push(userName);
 		info[userName] = " ";
 		$("#created").text("Created! Enjoy!");
-  		$("#jumbotron").show(1000);
-  		$("#partnerName").show(1500);
-  		$("#chat").show(2000);
-  		$("#userName").hide();
+		$("#creatUsername").hide();
+		$(".jumbotron").show();
+		$("#chooseSyncmate").show();
+		setTimeout(function() {
+			$("#created").hide();
+		}, 3000);
 	});
 
 	socket.on('match', function(partnerName){
@@ -40,6 +44,9 @@
 
 	socket.on('noMatch', function(){
 		$("#noMatch").text("No Match");
+		setTimeout(function() {
+			$("#noMatch").hide();
+		}, 3000);
 	});
 
 	$('#play').click(function() {
@@ -103,6 +110,16 @@
     	var time    = hours+':'+minutes+':'+seconds;
     	return time;
 	}
+
+	$('form').submit(function () {
+      socket.emit('chat message', name[0] + ': ' + $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function (msg) {
+      console.log(msg);
+      $('#messages').append('<li>' + msg + '</li>');
+    });
 
 	$('#emitButton').click(function() {
 		var input = $('#message').val();
