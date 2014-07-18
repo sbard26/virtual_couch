@@ -68,10 +68,13 @@ io.on('connection', function(socket){
 	});
     
 	socket.on('chat message', function(data){
-		io.sockets.in(data[1]).emit('chat message', data[0]);
 		if(partners[data[1]])
 		{
 			io.sockets.in(partners[data[1]]).emit('chat message', data[0]);
+		}
+		else
+		{
+			io.sockets.in(data[1]).emit('chat message', data[0]);
 		}
   	});
 
